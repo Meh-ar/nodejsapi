@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const multer = require('multer') // v1.0.5
+const upload = multer() // for parsing multipart/form-data
+
+
 const port = 8888;
-const sequelize = require('./database/sequelize-connect-database')
-const Users = require('./models/User.models')
+const sequelize = require('./database/sequelize-connect-database');
+const Users = require('./models/User.models');
+
 
 
 const router = require('./routes/tehran.routes')
@@ -15,29 +21,37 @@ app.use((req, res, next) => {
     console.log("cache is disabled")
     next();
 });
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
 app.use('/tehran', router)
 
 
 app.get('/', async (req, resp) => {
-    const users = await Users.findAll()
+
     console.log(Object.keys(req.query))
     resp.send("hello")
 })
 
 
-app.get('/create-user', async (req, resp) => {
-    const user = await Users.create({ firstName: resp.query.firstname, lastName: resp.query.lastname, password: resp.query.password, email: resp.query.email });
-    resp.send(user)
-})
+app.post('/create-user', async (req, resp) => {
 
+    const { name, lastname, password, email } = req.body
+    const user = await Users.create({
+        firstName: name,
+        lastName: lastname,
+        password: password,
+        email: email
+    });
+
+    resp.send(user).status(200)
+})
 
 
 app.listen(port, async () => {
     try {
         await sequelize.authenticate();
-        await Users.sync();
         console.log('Connection has been established successfully.');
         console.log(`we are listening on port ${port}`)
     } catch (error) {

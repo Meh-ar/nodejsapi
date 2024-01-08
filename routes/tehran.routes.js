@@ -7,7 +7,6 @@ router.get('/', (req, resp) => {
 
 router.get('/houses', (req, resp) => {
     resp.send("houses in tehran ");
-
 })
 
-module.exports = router
+module.exports = router;
