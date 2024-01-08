@@ -4,12 +4,8 @@ const bodyParser = require('body-parser')
 const multer = require('multer') // v1.0.5
 const upload = multer() // for parsing multipart/form-data
 
-
-const port = 8888;
 const sequelize = require('./database/sequelize-connect-database');
 const Users = require('./models/User.models');
-
-
 
 const router = require('./routes/tehran.routes');
 const { error } = require('console');
@@ -60,6 +56,7 @@ app.post('/create-user', async (req, resp) => {
             resp.send(user).status(200)
         }
     }
+
     catch (error) {
 
         console.log(error);
@@ -67,6 +64,7 @@ app.post('/create-user', async (req, resp) => {
     }
 })
 
+const port = 8888;
 app.listen(port, async () => {
     try {
         await sequelize.authenticate();
