@@ -9,7 +9,7 @@ const create_user = async (req, resp) => {
     try {
         const allVarsExist = list.every(element => element !== null && element !== undefined);
 
-        console.log(allVarsExist);
+        console.log("not all variables are set");
 
         if (!allVarsExist) { resp.status(400).send("a variable does not exist ") }
 

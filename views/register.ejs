@@ -1,0 +1,99 @@
+<!-- register.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <!-- Include Bootstrap CSS (use your own CDN link or local file) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Register</div>
+                    <div class="card-body">
+                        <form onSubmit="handleform(event)">
+                            <div class="form-group">
+                                <label for="firstName">firstName</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Lastname</label>
+                                <input type="lastname" class="form-control" id="lastname" name="lastname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional, if needed for Bootstrap features) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        async function handleform(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const pass = document.getElementById('password').value;
+            const confPass = document.getElementById('confirmPassword').value;
+            const name = document.getElementById('firstname').value;
+            const lastname = document.getElementById('lastname').value;
+            const email = document.getElementById('email').value;
+
+            if (pass === confPass) {
+                const formData = new URLSearchParams();
+                formData.append('name', name); // Send 'name' instead of 'firstName'
+                formData.append('lastname', lastname); // Send 'lastname' instead of 'lastName'
+                formData.append('password', pass);
+                formData.append('email', email);
+
+                try {
+                    const response = await fetch("/create-user/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+
+                        },
+                        body: `name=${name}&lastname=${lastname}&password=${pass}&email=${email}`
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Handle successful response here if needed
+                        console.log("User created:", data);
+                    } else {
+                        throw new Error('Request failed with status ' + response.status);
+                    }
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    // Handle errors here
+                }
+            } else if (pass !== confPass) {
+                console.log("passwords don't match")
+            }
+        }
+    </script>
+</body>
+
+</html>
