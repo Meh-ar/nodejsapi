@@ -42,17 +42,19 @@ const login = async (req, resp) => {
                 else if (user.password !== password) {
 
                     console.log("password does not match")
-                    resp.status(401).send("wrong credentials");
+
+                    resp.render('login.ejs', { "errorMessage": "wrong credentials" });
                 }
 
                 else {
+
                     console.log("error from inside if")
                 }
             }
 
             else {
 
-                resp.status(200).send("user's not found!!!")
+                resp.render('login.ejs', { "errorMessage": "user's not found" })
 
             }
         }

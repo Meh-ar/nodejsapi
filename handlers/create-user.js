@@ -4,14 +4,16 @@ const Users = require('../models/User.models')
 const create_user = async (req, resp) => {
 
     const { name, lastname, password, email } = req.body
+
     const list = [name, lastname, password, email];
 
     try {
+
         const allVarsExist = list.every(element => element !== null && element !== undefined);
 
         console.log("not all variables are set");
 
-        if (!allVarsExist) { resp.status(400).send("a variable does not exist ") }
+        if (!allVarsExist) { resp.status(400).render('register', { 'errorMessage': 'all parameters do not exist' }) }
 
         else {
 
@@ -27,8 +29,9 @@ const create_user = async (req, resp) => {
     }
     catch (error) {
 
-        console.log(error);
+        console.log("error inside catch", error);
         resp.send(500)
+
     }
 }
 

@@ -5,7 +5,7 @@ const multer = require('multer') // v1.0.5
 const upload = multer(); // for parsing multipart/form-data
 const { login } = require('./handlers/login');
 const sequelize = require('./database/sequelize-connect-database');
-const router = require('./routes/auth.route');
+const auth = require('./routes/auth.route');
 const create_user = require('./handlers/create-user');
 require('dotenv').config();
 const path = require('path');
@@ -56,9 +56,10 @@ function loggerMiddleware(req, res, next) {
 
 
 //set template engine to ejs 
-app.set('view engine ', 'ejs');
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 // adding the headers for not caching 
+
 app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Pragma', 'no-cache');
@@ -66,12 +67,13 @@ app.use((req, res, next) => {
     console.log("cache is disabled");
     next();
 });
+
 app.use(loggerMiddleware);
 
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use('/auth', router)
+app.use('/auth', auth)
 
 
 app.get('/', async (req, resp) => {

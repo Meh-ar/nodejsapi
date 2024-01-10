@@ -1,14 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const auth = express.Router();
 
 
-router.get('/login', async (req, resp) => {
-    resp.render('login.ejs')
+auth.get('/login', async (req, resp) => {
 
-})
-router.get('/register', async (req, resp) => {
-    resp.render('register.ejs')
+    resp.render('login')
 
 })
 
-module.exports = router
+auth.get('/register', async (req, resp) => {
+
+    resp.render('register')
+
+})
+
+module.exports = auth
