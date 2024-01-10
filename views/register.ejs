@@ -79,7 +79,9 @@
                 try {
                     const response = await fetch("/create-user/", {
                         method: "POST",
+
                         headers: {
+
                             "Content-Type": "application/x-www-form-urlencoded",
 
                         },

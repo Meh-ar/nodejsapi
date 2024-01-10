@@ -13,7 +13,9 @@ const create_user = async (req, resp) => {
 
         console.log("not all variables are set");
 
-        if (!allVarsExist) { resp.status(400).render('register', { 'errorMessage': 'all parameters do not exist' }) }
+        if (!allVarsExist) {
+            resp.status(400).render('register', { 'errorMessage': 'all parameters do not exist' })
+        }
 
         else {
 

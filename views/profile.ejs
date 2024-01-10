@@ -1,0 +1,39 @@
+<!-- profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add your custom styles here */
+        /* For example: */
+        /* .profile-container {
+         margin-top: 50px;
+       } */
+    </style>
+</head>
+
+<body>
+    <div class="container profile-container">
+        <h1>User Profile</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Welcome, <%= user.firstName %>
+                        <%= user.lastName %>
+                </h5>
+                <!-- You can display other user information here -->
+                <!-- Example: <p>Email: <%= user.email %></p> -->
+                <!-- Add more fields based on your User model -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional if you need Bootstrap JS features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
