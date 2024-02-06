@@ -37,7 +37,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+//loogers
 app.use(morgan('dev'))
 app.use(morgan(':reqbody', { skip: (req, res) => { return req.body == undefined } }));
 app.use(morgan(':resbody', { skip: (req, res) => { return res.body == undefined } }));
@@ -48,6 +48,7 @@ app.use('/user', userRouter)
 
 
 
+//routes
 app.get('/', async (req, resp) => {
     console.log(Object.keys(req.query))
     resp.send("hello")
@@ -61,6 +62,13 @@ app.post("/login", login)
 
 
 const port = process.env.PORT
+sequelize.sync()
+  .then(() => {
+    console.log('Database synchronized successfully');
+  })
+  .catch(err => {
+    console.error('Database synchronization failed:', err);
+  });
 
 
 app.listen(port, async () => {

@@ -1,13 +1,11 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 
-
 const sequelize = require('../database/sequelize-connect-database');
 
 
 
-
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
     // Model attributes are defined here
     firstName: {
         type: DataTypes.STRING,

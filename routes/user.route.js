@@ -11,6 +11,7 @@ router.get('/profile', async (req, res) => {
     console.log(token, "token")
     try {
         if (token) {
+
             const decoded = jwt.verify(token, process.env.JSON_TOKEN);
 
             const user = await User.findOne({
@@ -25,13 +26,17 @@ router.get('/profile', async (req, res) => {
             }
         }
         else {
+
             res.redirect("/auth/login")
+
         }
     }
     catch (error) {
 
         console.log(" error in user.route.js");
-        res.status(301).redirect('/auth/login')
+
+        res.status(301).redirect('/auth/login');
+
     }
 
 })
